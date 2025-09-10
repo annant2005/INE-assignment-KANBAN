@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import { z } from 'zod';
-import { sequelize } from '../../storage/sequelize';
-import { Card } from '../../models/card';
-import { Column } from '../../models/column';
-import { User } from '../../models/user';
-import { AuditLog } from '../../models/auditLog';
-import { Notification } from '../../models/notification';
-import { sendCardAssignedEmail } from '../../clients/sendgrid';
+import { sequelize } from '../../storage/sequelize.js';
+import { Card } from '../../models/card.js';
+import { Column } from '../../models/column.js';
+import { User } from '../../models/user.js';
+import { AuditLog } from '../../models/auditLog.js';
+import { Notification } from '../../models/notification.js';
+import { sendCardAssignedEmail } from '../../clients/sendgrid.js';
 import { QueryTypes } from 'sequelize';
 
 export const cardsRouter = Router({ mergeParams: true });
@@ -208,3 +208,4 @@ cardsRouter.delete('/:cardId', async (req, res, next) => {
     next(err);
   }
 });
+
