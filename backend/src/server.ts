@@ -6,7 +6,7 @@ import cors from 'cors';
 import path from 'path';
 import { createServer } from 'http';
 import { initWebsocketServer } from './ws/server';
-import { initSequelize } from './storage/sequelize';
+import { sequelize } from './storage/sequelize';
 import { loadEnv } from './utils/env';
 import { initModels } from './models';
 import { apiRouter } from './modules/routes';
@@ -47,7 +47,7 @@ const PORT = process.env.PORT ? Number(process.env.PORT) : 8080;
 (async () => {
   try {
     console.log('Kanban backend server starting...');
-    const sequelize = await initSequelize();
+    await sequelize.authenticate();
     await sequelize.authenticate();
     initModels(sequelize);
     await sequelize.sync();
@@ -61,3 +61,4 @@ const PORT = process.env.PORT ? Number(process.env.PORT) : 8080;
     process.exit(1);
   }
 })();
+
