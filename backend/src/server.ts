@@ -8,7 +8,7 @@ import { createServer } from 'http';
 import { initWebsocketServer } from './ws/server.js';
 import { sequelize } from './storage/sequelize.js';
 import { loadEnv } from './utils/env.js';
-import { initModels } from './models.js';
+import { initModels } from './models/index.js';
 import { apiRouter } from './modules/routes.js';
 
 loadEnv();
@@ -61,5 +61,6 @@ const PORT = process.env.PORT ? Number(process.env.PORT) : 8080;
     process.exit(1);
   }
 })();
+
 
 
