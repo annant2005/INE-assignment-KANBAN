@@ -1,10 +1,10 @@
 # Multi-stage build for production
-FROM node:18-alpine AS builder
+FROM node:18-alpine AS backend-builder
 
-# Set working directory
-WORKDIR /app
+# Set working directory for backend
+WORKDIR /app/backend
 
-# Copy package files
+# Copy backend package files
 COPY backend/package*.json ./
 RUN npm ci --only=production
 
@@ -14,9 +14,15 @@ COPY backend/ ./
 # Build backend
 RUN npm run build
 
-# Copy frontend files
+# Frontend build stage
+FROM node:18-alpine AS frontend-builder
+
+# Set working directory for frontend
+WORKDIR /app/frontend
+
+# Copy frontend package files
 COPY frontend/package*.json ./
-RUN npm ci --only=production
+RUN npm ci
 
 # Copy frontend source
 COPY frontend/ ./
@@ -37,14 +43,14 @@ RUN adduser -S nextjs -u 1001
 # Set working directory
 WORKDIR /app
 
-# Copy backend dependencies
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/package*.json ./
-COPY --from=builder /app/start.js ./
+# Copy backend build and dependencies
+COPY --from=backend-builder /app/backend/node_modules ./node_modules
+COPY --from=backend-builder /app/backend/dist ./dist
+COPY --from=backend-builder /app/backend/package*.json ./
+COPY --from=backend-builder /app/backend/start.js ./
 
 # Copy frontend build
-COPY --from=builder /app/dist ./public
+COPY --from=frontend-builder /app/frontend/dist ./public
 
 # Set environment variables
 ENV NODE_ENV=production
