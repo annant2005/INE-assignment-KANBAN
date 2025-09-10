@@ -47,7 +47,7 @@ const PORT = process.env.PORT ? Number(process.env.PORT) : 8080;
 (async () => {
   try {
     console.log('Kanban backend server starting...');
-    const sequelize = await initSequelize();
+    const sequelize = await sequelize();
     await sequelize.authenticate();
     initModels(sequelize);
     await sequelize.sync();
@@ -61,5 +61,6 @@ const PORT = process.env.PORT ? Number(process.env.PORT) : 8080;
     process.exit(1);
   }
 })();
+
 
 
