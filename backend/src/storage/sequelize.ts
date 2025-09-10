@@ -7,16 +7,14 @@ if (!databaseUrl) {
   throw new Error('DATABASE_URL is required (Supabase connection string)');
 }
 
-export async function initSequelize(): Promise<Sequelize> {
-  // Parse DATABASE_URL and resolve hostname to IPv4, then reconnect using components
-  const parsed = new URL(databaseUrl!);
+async function createSequelizeInstance(): Promise<Sequelize> {
+  const parsed = new URL(databaseUrl);
   const hostname = parsed.hostname;
   const port = parsed.port ? Number(parsed.port) : 5432;
   const database = (parsed.pathname || '/').replace(/^\//, '');
   const username = decodeURIComponent(parsed.username || '');
   const password = decodeURIComponent(parsed.password || '');
 
-  // Resolve IPv4 address
   const ipv4 = await new Promise<string>((resolve, reject) => {
     dns.lookup(hostname, { family: 4 }, (err, address) => {
       if (err) return reject(err);
@@ -24,7 +22,7 @@ export async function initSequelize(): Promise<Sequelize> {
     });
   });
 
-  const sequelize = new Sequelize(database, username, password, {
+  return new Sequelize(database, username, password, {
     host: ipv4,
     port,
     dialect: 'postgres',
@@ -34,7 +32,7 @@ export async function initSequelize(): Promise<Sequelize> {
     },
     logging: process.env.DB_LOG === 'true' ? console.log : false,
   });
-
-  return sequelize;
 }
 
+// Initialize Sequelize once and export it
+export const sequelize = await createSequelizeInstance();
