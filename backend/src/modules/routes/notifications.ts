@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { Notification } from '../../models/notification';
+import { Notification } from '../../models/notification.js';
 
 export const notificationsRouter = Router();
 
@@ -24,3 +24,4 @@ notificationsRouter.post('/:id/read', async (req, res, next) => {
     next(err);
   }
 });
+
