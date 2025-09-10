@@ -6,7 +6,7 @@ WORKDIR /app/backend
 
 # Copy backend package files
 COPY backend/package*.json ./
-RUN npm ci --only=production
+RUN npm ci
 
 # Copy backend source
 COPY backend/ ./
@@ -43,10 +43,12 @@ RUN adduser -S nextjs -u 1001
 # Set working directory
 WORKDIR /app
 
-# Copy backend build and dependencies
-COPY --from=backend-builder /app/backend/node_modules ./node_modules
-COPY --from=backend-builder /app/backend/dist ./dist
+# Copy backend package files and install only production dependencies
 COPY --from=backend-builder /app/backend/package*.json ./
+RUN npm ci --only=production && npm cache clean --force
+
+# Copy backend build
+COPY --from=backend-builder /app/backend/dist ./dist
 COPY --from=backend-builder /app/backend/start.js ./
 
 # Copy frontend build
