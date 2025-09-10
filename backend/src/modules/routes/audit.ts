@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { AuditLog } from '../../models/auditLog';
+import { AuditLog } from '../../models/auditLog.js';
 
 export const auditRouter = Router();
 
@@ -13,3 +13,4 @@ auditRouter.get('/', async (req, res, next) => {
     next(err);
   }
 });
+
