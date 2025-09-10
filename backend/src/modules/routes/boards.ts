@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import { z } from 'zod';
-import { sequelize } from '../../storage/sequelize';
-import { Board } from '../../models/board';
-import { Column } from '../../models/column';
-import { User } from '../../models/user';
-import { AuditLog } from '../../models/auditLog';
-import { AuthenticatedRequest } from '../../middleware/auth';
+import { sequelize } from '../../storage/sequelize.js';
+import { Board } from '../../models/board.js';
+import { Column } from '../../models/column.js';
+import { User } from '../../models/user.js';
+import { AuditLog } from '../../models/auditLog.js';
+import { AuthenticatedRequest } from '../../middleware/auth.js';
 
 export const boardsRouter = Router();
 
@@ -148,3 +148,4 @@ boardsRouter.delete('/:boardId/columns/:columnId', async (req, res, next) => {
     next(err);
   }
 });
+
