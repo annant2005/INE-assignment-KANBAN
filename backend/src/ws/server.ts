@@ -1,6 +1,6 @@
 import { Server as HttpServer } from 'http';
 import { WebSocketServer, WebSocket } from 'ws';
-import { presence } from '../clients/redis';
+import { presence } from '../clients/redis.js';
 
 type Client = WebSocket & { userId?: string; boardId?: string; userName?: string };
 
@@ -129,3 +129,4 @@ export const initWebsocketServer = (httpServer: HttpServer) => {
 
   return wss;
 };
+
