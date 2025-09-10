@@ -8,7 +8,7 @@ if (!databaseUrl) {
 }
 
 async function createSequelizeInstance(): Promise<Sequelize> {
-  const parsed = new URL(databaseUrl);
+  const parsed = new URL(databaseUrl!);
   const hostname = parsed.hostname;
   const port = parsed.port ? Number(parsed.port) : 5432;
   const database = (parsed.pathname || '/').replace(/^\//, '');
@@ -36,3 +36,4 @@ async function createSequelizeInstance(): Promise<Sequelize> {
 
 // Initialize Sequelize once and export it
 export const sequelize = await createSequelizeInstance();
+
