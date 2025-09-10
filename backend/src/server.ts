@@ -6,7 +6,7 @@ import cors from 'cors';
 import path from 'path';
 import { createServer } from 'http';
 import { initWebsocketServer } from './ws/server';
-import { sequelize } from './storage/sequelize';
+import { initSequelize } from './storage/sequelize';
 import { loadEnv } from './utils/env';
 import { initModels } from './models';
 import { apiRouter } from './modules/routes';
@@ -47,12 +47,13 @@ const PORT = process.env.PORT ? Number(process.env.PORT) : 8080;
 (async () => {
   try {
     console.log('Kanban backend server starting...');
+    const sequelize = await initSequelize();
     await sequelize.authenticate();
     initModels(sequelize);
     await sequelize.sync();
-    httpServer.listen(PORT, 'localhost', () => {
+    httpServer.listen(PORT,'0.0.0.0', () => {
       // eslint-disable-next-line no-console
-      console.log(`Server listening on http://localhost:${PORT}`);
+      console.log(`Server listening on 0.0.0.0:${PORT}`);
     });
   } catch (err) {
     // eslint-disable-next-line no-console
