@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import { z } from 'zod';
-import { User } from '../../models/user';
-import { hashPassword, comparePassword, generateToken } from '../../utils/auth';
-import { authenticateToken, AuthenticatedRequest } from '../../middleware/auth';
+import { User } from '../../models/user.js';
+import { hashPassword, comparePassword, generateToken } from '../../utils/auth.js';
+import { authenticateToken, AuthenticatedRequest } from '../../middleware/auth.js';
 
 export const authRouter = Router();
 
@@ -157,3 +157,4 @@ authRouter.put('/password', authenticateToken, async (req: AuthenticatedRequest,
     next(err);
   }
 });
+
