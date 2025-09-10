@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import cors from 'cors';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import { createServer } from 'http';
 import { initWebsocketServer } from './ws/server.js';
 import { sequelize } from './storage/sequelize.js';
@@ -63,6 +64,7 @@ const PORT = process.env.PORT ? Number(process.env.PORT) : 8080;
     process.exit(1);
   }
 })();
+
 
 
 
