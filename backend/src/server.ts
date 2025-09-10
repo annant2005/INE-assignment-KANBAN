@@ -5,11 +5,11 @@ import morgan from 'morgan';
 import cors from 'cors';
 import path from 'path';
 import { createServer } from 'http';
-import { initWebsocketServer } from './ws/server';
-import { sequelize } from './storage/sequelize';
-import { loadEnv } from './utils/env';
-import { initModels } from './models';
-import { apiRouter } from './modules/routes';
+import { initWebsocketServer } from './ws/server.js';
+import { sequelize } from './storage/sequelize.js';
+import { loadEnv } from './utils/env.js';
+import { initModels } from './models.js';
+import { apiRouter } from './modules/routes.js';
 
 loadEnv();
 
@@ -61,4 +61,5 @@ const PORT = process.env.PORT ? Number(process.env.PORT) : 8080;
     process.exit(1);
   }
 })();
+
 
