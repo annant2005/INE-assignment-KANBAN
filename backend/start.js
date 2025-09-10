@@ -1,5 +1,5 @@
 // Load environment variables first
-require('dotenv').config();
+import 'dotenv/config';
 
 // Set environment variables if not already set
 process.env.DATABASE_URL = process.env.DATABASE_URL || 'postgresql://postgres:Annant@1100@db.gxychcqoxelajmfggyab.supabase.co:5432/postgres';
@@ -10,4 +10,7 @@ process.env.PORT = process.env.PORT || '8080';
 process.env.SENDGRID_FROM_EMAIL = process.env.SENDGRID_FROM_EMAIL || 'noreply@kanban.app';
 
 // Start the server
-require('./dist/server.js');
+// Load environment variables first
+
+// Start the server
+import('./dist/server.js');
