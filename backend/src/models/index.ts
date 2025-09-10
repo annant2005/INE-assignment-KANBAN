@@ -1,10 +1,10 @@
 import { Sequelize } from 'sequelize';
-import { initUserModel, User } from './user';
-import { initBoardModel, Board } from './board';
-import { initColumnModel, Column } from './column';
-import { initCardModel, Card } from './card';
-import { initNotificationModel, Notification } from './notification';
-import { initAuditLogModel, AuditLog } from './auditLog';
+import { initUserModel, User } from './user.js';
+import { initBoardModel, Board } from './board.js';
+import { initColumnModel, Column } from './column.js';
+import { initCardModel, Card } from './card.js';
+import { initNotificationModel, Notification } from './notification.js';
+import { initAuditLogModel, AuditLog } from './auditLog.js';
 
 export const initModels = (sequelize: Sequelize) => {
   initUserModel(sequelize);
@@ -40,3 +40,4 @@ export const initModels = (sequelize: Sequelize) => {
 
   return { User, Board, Column, Card, Notification, AuditLog };
 };
+
