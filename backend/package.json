@@ -2,6 +2,7 @@
   "name": "kanban-backend",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "tsc -p tsconfig.json",
@@ -42,3 +43,4 @@
     "typescript": "^5.4.5"
   }
 }
+
