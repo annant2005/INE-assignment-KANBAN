@@ -9,7 +9,7 @@ if (!databaseUrl) {
 
 export async function initSequelize(): Promise<Sequelize> {
   // Parse DATABASE_URL and resolve hostname to IPv4, then reconnect using components
-  const parsed = new URL(databaseUrl);
+  const parsed = new URL(databaseUrl!);
   const hostname = parsed.hostname;
   const port = parsed.port ? Number(parsed.port) : 5432;
   const database = (parsed.pathname || '/').replace(/^\//, '');
@@ -37,3 +37,4 @@ export async function initSequelize(): Promise<Sequelize> {
 
   return sequelize;
 }
+
